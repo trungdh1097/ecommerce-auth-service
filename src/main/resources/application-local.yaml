@@ -1,0 +1,35 @@
+# Local development only. Secret values are created by scripts/init-local.sh.
+auth:
+  runtime:
+    enabled: true
+    otp-hmac-key: ${LOCAL_OTP_HMAC_KEY}
+    allowed-origins:
+      - https://localhost:8443
+    clients:
+      web:
+        platform: WEB
+        google-audience: ${LOCAL_GOOGLE_WEB_AUDIENCE:}
+        google-presenters: ${LOCAL_GOOGLE_WEB_PRESENTERS:}
+      android:
+        platform: ANDROID
+        google-audience: ${LOCAL_GOOGLE_ANDROID_AUDIENCE:}
+        google-presenters: ${LOCAL_GOOGLE_ANDROID_PRESENTERS:}
+      ios:
+        platform: IOS
+        google-audience: ${LOCAL_GOOGLE_IOS_AUDIENCE:}
+        google-presenters: ${LOCAL_GOOGLE_IOS_PRESENTERS:}
+  jwt:
+    issuer: https://localhost:8443
+    audience: ecommerce
+    active-key-id: local
+    private-key-pem: ${LOCAL_JWT_PRIVATE_KEY}
+    public-keys:
+      local: ${LOCAL_JWT_PUBLIC_KEY}
+  outbox:
+    enabled: true
+    active-key-id: local
+    keys:
+      local: ${LOCAL_OUTBOX_KEY}
+    from: auth@localhost.test
+    verify-url: https://localhost:8443/verify
+    reset-url: https://localhost:8443/reset
